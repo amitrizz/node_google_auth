@@ -7,89 +7,49 @@ import { ChangeData, PreviousButtonState, SetUserIdForUpdate } from '../../featu
 import { useAuth0 } from '@auth0/auth0-react'
 
 function DashBoard() {
-
     const navigate = useNavigate()
-
-    const data = useSelector(state => state.data)
-    const isbuttonDisble = useSelector(state => state.currentstate)
-    const [fileContent, setFileContent] = useState(false);
-
-    const [skip, setSkip] = useState(1);
-
     const dispatch = useDispatch();
-
-    const AddMoreDataToTable = async () => {
-        try {
-            // console.log(skip);
-            setFileContent(false);
-            const response = await axios.post(`${process.env.REACT_APP_URI}/api/dashboard/loaddata`, { skip: skip + 1 });
-            setSkip(skip + 1);
-            dispatch(ChangeData(response.data.data))
-            dispatch(PreviousButtonState(false));
-            setFileContent(true);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
+    const data = useSelector(state => state.data)
+    // const [data, setData] = useState([]);
+    const [page, setPage] = useState(1);
+    const [isLastPage, setIsLastPage] = useState(false);
     const DeleteUserbyId = async (id) => {
         try {
-            // console.log(skip);
-            setFileContent(false);
-            let response = await axios.delete(`${process.env.REACT_APP_URI}/api/dashboard/deleteuser/${id}`);
-            console.log(response.data);
-            alert(response.data.result)
-            response = await axios.get(`${process.env.REACT_APP_URI}/api/dashboard/loaddata`);
-            dispatch(ChangeData(response.data.data))
-            if (response.data.data[0].id == 1) {
-                dispatch(PreviousButtonState(true));
-            }
-            setFileContent(true);
-            // setFileContent(true);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
-    const RemoveMoreDataToTable = async () => {
 
-        try {
-            // console.log(skip);
-            setFileContent(false);
-            const response = await axios.post(`${process.env.REACT_APP_URI}/api/dashboard/loaddata`, { skip: skip - 1 });
-            setSkip(skip - 1);
-            dispatch(ChangeData(response.data.data))
-            if (response.data.data[0].id == 1) {
-                dispatch(PreviousButtonState(true));
+            const result = window.confirm("Are you sure?");
+            // console.log(result);
+            if(result){
+                let response = await axios.delete(`${process.env.REACT_APP_URI}/api/dashboard/deleteuser/${id}`);
+                response = await axios.get(`${process.env.REACT_APP_URI}/api/dashboard/loaddata/${page}`);
+                // setData(response.data.data)
+                dispatch(ChangeData(response.data.data))
             }
-            setFileContent(true);
+            
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     }
+
     const RedirectToUpdate = (id) => {
         dispatch(SetUserIdForUpdate(id));
         navigate("/updateuser")
     }
 
     useEffect(() => {
-
         const fetchData = async () => {
             try {
-                // Send the request with the configured headers
-                console.log(process.env.REACT_APP_URI);
-                const response = await axios.get(`${process.env.REACT_APP_URI}/api/dashboard/loaddata`);
+                const response = await axios.get(`${process.env.REACT_APP_URI}/api/dashboard/loaddata/${page}`);
+                // setData(response.data.data);
                 dispatch(ChangeData(response.data.data))
-                console.log(response.data.data);
-                if (response.data.data[0].id == 1) {
-                    dispatch(PreviousButtonState(true));  
-                }
-                setFileContent(true);
-                //   setAllemployee(response)
+                setIsLastPage(response.data.data.length < 10);
+                
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
         fetchData();
-    }, []);
+    }, [page]);
+
 
     const { user, isAuthenticated } = useAuth0();
     const [isauth, setIsauth] = useState(false);
@@ -112,10 +72,10 @@ function DashBoard() {
             {
                 isauth ?
                     <div className='Dashbody'>
-                        {fileContent && isAuthenticated ?
+                        {isAuthenticated ?
                             <div className='dashcontent'>
-                                <button onClick={RemoveMoreDataToTable} disabled={isbuttonDisble}>Pre PAge</button>
-                                <button onClick={AddMoreDataToTable}>Next PAge</button>
+                                <button onClick={() => setPage(page - 1)} disabled={page === 1}>Previous</button>
+                                <button onClick={() => setPage(page + 1)} disabled={isLastPage}>Next</button>
                                 {
                                     data.map((obj) => {
                                         return (
@@ -125,7 +85,7 @@ function DashBoard() {
                                                         <h5 class="card-title">Vendor Name : {obj.vendor_name} {obj.last_name}</h5>
                                                         <h5 class="card-title">Bank Name: {obj.bank_name}</h5>
                                                         <h5 class="card-title">Account Number: {obj.acc_no}</h5>
-                                                        
+
                                                     </div>
                                                     <div>
 

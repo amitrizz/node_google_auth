@@ -1,18 +1,15 @@
 import DataModel from '../models/DashBoard.js';
 
 
-class DashBoardController {
+class DashBoardController { 
     static loadUser = async (req, res, next) => {
         try {
-            console.log("sgfb");
-            const noOfPage = 20;
-            let { skip } = req.body;
-            if (!skip) {
-                skip = 1;
-            }
-            const nextresult = (skip - 1) * noOfPage
+            const noOfPage = 10;
+            const pages = req.params.pages;
+            
+            const startIndex = (pages - 1) * noOfPage;
             // console.log(skip);
-            const results = await DataModel.find().skip(nextresult).limit(noOfPage);
+            const results = await DataModel.find().skip(startIndex).limit(noOfPage);
             // console.log(results);
             res.send({ data: "data", data: results });
 
