@@ -4,9 +4,12 @@
 }
 .nav-link{
   display: flex;
-  list-style: none; width: 100%;
-  /* background: #ec9898; */
+  list-style: none; 
+  width: 100%;
+  background: #c0c0c0;
   justify-content: space-evenly;
+  align-items: center;
+  height: 50px;
 }
 .nav-link li{
   list-style: none;
@@ -18,11 +21,10 @@
   border-radius: 3px;
   color: gray;
 }
-.navbarbody{
+/* .navbarbody{
   background: #c0c0c0;
   padding: 1px;
-
-}
+} */
 .link-styles{
   text-decoration: none;
   color: gray;
@@ -52,7 +54,7 @@
 }
 
 .Dashbody {
-  flex-basis: 50%;
+  flex-basis: 100%;
   height: inherit;
   overflow-y: auto;
 }
@@ -73,7 +75,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  /* padding: 10px; */
   overflow: hidden;
 }
 
@@ -87,6 +89,7 @@
   padding-left: 50px;
   border-radius: 10px;
   padding-bottom: 10px;
+  margin: 10px;
 }
 .User{
   

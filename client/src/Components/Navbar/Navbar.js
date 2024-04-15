@@ -42,7 +42,7 @@ function Navbar() {
                 isauth &&
                 <div>
 
-                    <nav className='navbody'>
+                    <nav>
                         <ul className="nav-link">
                             <li className="link">
                                 <Link to="/" className={"link-styles"}>DashBoard</Link>
