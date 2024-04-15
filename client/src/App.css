@@ -11,12 +11,21 @@
 .nav-link li{
   list-style: none;
 }
+.nav-link button{
+  background: transparent;
+  border: none;
+  padding: 5px;
+  border-radius: 3px;
+  color: gray;
+}
 .navbarbody{
-  background: #47746e;
+  background: #c0c0c0;
   padding: 1px;
+
 }
 .link-styles{
   text-decoration: none;
+  color: gray;
 }
 
 .dashloading {
@@ -27,5 +36,60 @@
   /* display: flex;
   justify-content: center;
   align-items: center; */
+
+}
+
+.DashBoard {
+  display: flex;
+  /* background: #f78585; */
+  height: 100vh;
+  width: 100%;
+  /* justify-content: space-between; */
+  overflow: hidden;
+  /* padding-bottom: 80px; */
+  margin-bottom: 50px;
+  scrollbar-color: red;
+}
+
+.Dashbody {
+  flex-basis: 50%;
+  height: inherit;
+  overflow-y: auto;
+}
+
+.dashcontent {
+  padding: 10px;
+  /* width: 90%; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+
+
+
+.UserBoard{
+  /* background: #f39494; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.sidebar{
+  flex-basis: 50%;
+  height: inherit;
+  overflow-y: auto;
+  border: 1px solid gray;
+  padding-top: 20px;
+  padding-right: 50px;
+  padding-left: 50px;
+  border-radius: 10px;
+  padding-bottom: 10px;
+}
+.User{
+  
+  /* overflow-y: auto; */
 
 }

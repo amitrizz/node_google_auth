@@ -57,13 +57,13 @@ function AddUser() {
     }, []); // Empty dependency array to run effect only once
 
     return (
-        <div className='DashBoard'>
+        <div className='UserBoard'>
             {
                 isauth ?
-                    <div className='User'>
+                    <div  className='sidebar'>
                         {
                             isAuthenticated ?
-                                <div className='sidebar'>
+                                <div className='User'>
                                     <h1>ADD EMPLOYEE</h1>
                                     <div className='form'>
                                         <div class="mb-3">

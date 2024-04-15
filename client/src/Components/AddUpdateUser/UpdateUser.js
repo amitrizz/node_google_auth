@@ -92,13 +92,13 @@ function UpdateUser() {
         }
     }, [])
     return (
-        <div className='User'>
+        <div className='UserBoard'>
             {
                 isauth ?
                     <div className='sidebar'>
                         {
                             isAuthenticated ?
-                                <div>
+                                <div className='User'>
 
                                     <h1>Update EMPLOYEE</h1>
                                     <div className='form'>
